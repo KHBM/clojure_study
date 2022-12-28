@@ -1,5 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+val kotestVersion: String by project
+val kotestExtensionsSpringVersion: String by project
+
 plugins {
 	id("org.springframework.boot") version "2.7.1"
 	id("io.spring.dependency-management") version "1.1.0"
@@ -28,6 +31,8 @@ dependencies {
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+	testImplementation("io.kotest.extensions:kotest-extensions-spring:$kotestExtensionsSpringVersion")
 }
 
 tasks.withType<KotlinCompile> {
