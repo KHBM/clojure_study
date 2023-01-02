@@ -1,6 +1,7 @@
 package com.study.fox
 
 import io.kotest.core.spec.style.DescribeSpec
+import org.assertj.core.api.Assertions
 
 /**
  *
@@ -17,7 +18,7 @@ class OptionalFoxTest: DescribeSpec() {
                     val actual = o.map { it + 1 }
                         .map { it + 2 }
                         .orElse(400)
-                    Assertions.assertEquals(400, actual)
+                    Assertions.assertThat(actual).isSameAs(400)
                 }
             }
         }
@@ -28,7 +29,7 @@ class OptionalFoxTest: DescribeSpec() {
                     val actual = o.map { it + 1 }
                         .map { it + 2 }
                         .orElse(400)
-                    Assertions.assertEquals(403, actual)
+                    Assertions.assertThat(actual).isSameAs(403)
                 }
             }
         }
