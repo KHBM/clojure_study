@@ -5,14 +5,22 @@ fun main(args: Array<String>) {
     try {
         val opt: Optional_fox<Int> = Optional_fox.of(null)
 
-        val orElse: Int = opt.map { it + 1 }
-            .map { it + 2 }.orElse(342)
+        val orElse: Int =
+            opt
+            .map { it + 1 }
+            .map { it + 2 }
+            .orElse(342)
         println(orElse)
 
         val get = Optional_fox.of(3)
             .filter { it > 3 }
             .get()
         println(get)
+
+        val nullValue = Optional_fox.of(null)
+            .filter { it == 3 }
+            .get()
+        println("return $nullValue")
 
         val get2 = Optional_fox.of(3)
             .map { it.toString()  }
@@ -35,7 +43,12 @@ fun main(args: Array<String>) {
 
         val dOp = Optional_fox.of(50)
 
-        val rOp = applyi(fnOp, dOp)
+        val rOp: Optional_fox<Int> = applyi(fnOp, dOp)
+
+//        val fn1 = { a:Int -> a + 100 }
+//        val fv1 = 50
+//
+//        fn1.invoke(fv1)
 
         println(rOp.get())
 

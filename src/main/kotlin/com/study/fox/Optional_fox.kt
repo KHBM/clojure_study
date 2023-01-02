@@ -6,14 +6,14 @@ package com.study.fox
  **/
 class Optional_fox<T> private constructor(
     private val data: T?
-) {
+):_fox<T> {
     companion object {
         fun <T> of(v: T?): Optional_fox<T> {
             return Optional_fox(v)
         }
     }
 
-    fun <R> map(
+    override fun <R> map( //functor
         functor: ((T) -> (R)),
     ): Optional_fox<R> {
         if (data == null) {
@@ -23,7 +23,7 @@ class Optional_fox<T> private constructor(
         return Optional_fox(r)
     }
 
-    fun filter(
+    override fun filter(
         predicate: ((T) -> Boolean),
     ): Optional_fox<T> {
         if (data == null) {
@@ -44,9 +44,19 @@ class Optional_fox<T> private constructor(
     fun orElse(value : T): T {
         return data ?: value
     }
+
+    override fun <R> flatMap(applier: (T) -> _fox<R>): _fox<R> {
+        TODO("Not yet implemented")
+    }
+
+//    inline fun <reified U, reified T> apply(value : Optional_fox<T>): Optional_fox<U> {
+//        if ( data is ((T) -> (U))) {
+//
+//        }
+//    }
 }
 
-fun <R, U, T> applyi(
+fun <R, U, T> applyi( //applicative
     functionOptional: Optional_fox<T>,
     dataOptional: Optional_fox<R>
 ): Optional_fox<U> where T : ((R) -> (U)){
