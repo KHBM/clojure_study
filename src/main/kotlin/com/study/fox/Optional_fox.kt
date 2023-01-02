@@ -13,7 +13,7 @@ class Optional_fox<T> private constructor(
         }
     }
 
-    fun <R> map(
+    fun <R> map( //functor
         functor: ((T) -> (R)),
     ): Optional_fox<R> {
         if (data == null) {
@@ -44,9 +44,15 @@ class Optional_fox<T> private constructor(
     fun orElse(value : T): T {
         return data ?: value
     }
+
+    inline fun <reified U, reified T> apply(value : Optional_fox<T>): Optional_fox<U> {
+        if ( data is ((T) -> (U))) {
+
+        }
+    }
 }
 
-fun <R, U, T> applyi(
+fun <R, U, T> applyi( //applicative
     functionOptional: Optional_fox<T>,
     dataOptional: Optional_fox<R>
 ): Optional_fox<U> where T : ((R) -> (U)){
